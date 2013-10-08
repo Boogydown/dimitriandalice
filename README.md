@@ -1,4 +1,4 @@
-dimitriandalice
+DimitriAndAlice.com
 ===============
 
 For my wedding in 2011 I wanted to write a rich web page to allow guests to RSVP, reserve rooms at the venue, PAY for those rooms, sign up for events (like horseback riding, canoeing, etc), sigh up for carpools, etc.
