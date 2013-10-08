@@ -1,0 +1,69 @@
+<style>
+    table.myResTable { width: 650px; padding: 0px; border: 1px solid #789DB3; }
+    table.myResTable td { border: none; background-color: #F4F4F4; vertical-align: middle; text-align: center; padding: 3px; }
+    table.myResTable th { width:120px; border-bottom: 1px solid #000000; }
+    table.myResTable tr.topRow td { border-bottom: 1px solid #000000;  }
+    table.myResTable td.description { width:300px; text-align:left; border-bottom:0px ; border-left: 1px solid #000000; }
+table td { align: center-align; }
+table td.name { width: 50px; }
+table td.zip { width: 15px; }
+table td.date { width: 30px; }
+table td.avail { width: 25px; }
+table td.btn { width: 15px; }</style>
+<table>
+<tbody>
+<tr>
+<td rowspan="2">Carpools<br />
+TO<br />
+Event<br />
+<button title="push">me</button></td>
+<td class="name">Name</td>
+<td class="zip">ZipCode</td>
+<td class="date">Date, Time</td>
+<td class="avail"># Available</td>
+<td class="btn"><br />
+</td></tr>
+<tr>
+<td colspan="5">
+<div style="overflow: auto; height: 50px; width: 600px; padding-bottom: 5px">
+<table style="width: 100%; border-collapse: collapse" border=".5" bordercolor="#339966" cellspacing="0">
+<tbody>
+<tr>
+<td class="name">Dimitri Hammond</td>
+<td class="zip">78753</td>
+<td class="date">Friday, 8pm</td>
+<td class="avail">3</td>
+<td class="btn">
+<button>Ride Along!</button></td></tr>
+<tr>
+<td class="name">Dimitri Hammond</td>
+<td class="zip">78753</td>
+<td class="date">Friday, 8pm</td>
+<td class="avail">3</td>
+<td class="btn">
+<button>Ride Along!</button></td></tr>
+<tr>
+<td class="name">Dimitri Hammond</td>
+<td class="zip">78753</td>
+<td class="date">Friday, 8pm</td>
+<td class="avail">3</td>
+<td class="btn">
+<button>Ride Along!</button></td></tr></tbody></table></div></td></tr></tbody></table>
+<table id="roomTable" class="myResTable">
+<tbody>
+<tr class="topRow">
+<th id="roomType"><br />
+</th>
+<td id="sleeps"><br />
+</td>
+<td><span id="remain"></span><span id="remainText"> remaining</span></td>
+<td rowspan="3" class="description"><br />
+</td></tr>
+<tr>
+<td>qty: <input id="qty1" size="2" maxlength="2" defaultvalue="" type="text" /></td>
+<td>1 night</td>
+<td>$<span id="price1nt"></span> ea.</td></tr>
+<tr>
+<td>qty: <input id="qty2" size="2" maxlength="2" defaultvalue="" type="text" /></td>
+<td>2 nights</td>
+<td>$<span id="price2nt"></span> ea.</td></tr></tbody></table><br />

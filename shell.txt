@@ -1,0 +1,5 @@
+/home/dimitria/public_html//pics/system/libraries/drivers/Session/Cookie.php: Suspicious(base64_decode): ncrypt) ? base64_decode($data) : 
+/home/dimitria/public_html//redmine/mantis/library/adodb/session/crypt.inc.php: Suspicious(base64_decode): is->keyED(base64_decode($txt),$ke
+/home/dimitria/public_html//redmine/mantis/library/adodb/session/old/crypt.inc.php: Suspicious(base64_decode): is->keyED(base64_decode($txt),$ke
+/home/dimitria/public_html//redmine/feng/library/swift/lib/classes/Swift/Transport/Esmtp/Auth/CramMd5Authenticator.php: Suspicious(base64_decode): allenge = base64_decode(substr($c
+/home/dimitria/public_html//mapatout/phpical/includes/todo.php: Suspicious(base64_decode): urldecode(base64_decode($_REQUEST

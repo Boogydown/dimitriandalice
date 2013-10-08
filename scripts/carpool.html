@@ -1,0 +1,283 @@
+<style>
+	table { padding: 0px; border: 1px solid #789DB3; }
+	table.carpoolsContainerTable { width: 800px; }
+	table td { border: none; background-color: #F4F4F4; vertical-align: middle; text-align: center; padding: 3px; }
+	table th { border-bottom: 1px solid #000000; }
+	table td.name { width: 195px; }
+	table td.zip { width: 90px; }
+	table td.date { width: 167px; }
+	table td.avail { width: 63px; }
+	table td.btn { width: 138px; }
+	table td.carpoolID { display: none; }
+	table.carpoolScrollerTable { width: 100%; border-collapse:collapse; }
+	table.carpoolScrollerTable td { border-bottom: thin black; }
+	div.carpoolScroller { overflow: auto; height: 98px; padding-bottom: 5px; }
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript" ></script>
+
+<!--------------------- Carpool Tables --------------------->
+<table class="carpoolsContainerTable"><tbody>
+<tr>
+	<td rowspan="2">Carpools<br />
+	<b>TO</b><br />
+	Event<br />
+	<button name="driverSignupTO" onclick="signupForm(this)">I Can Drive!</button></td>
+	<td class="name"><b>Name</b></td>
+	<td class="zip"><b>ZipCode</b></td>
+	<td class="date"><b>Date, Time</b></td>
+	<td class="avail"><b># Avail</b></td>
+	<td class="btn"></td>
+</tr>
+<tr>
+	<td colspan="5" style="border: 2px solid #339966">
+	<div id="carpoolTO" class="carpoolScroller">
+	<table id="carpoolTOTable" class="carpoolScrollerTable">
+	<tbody>
+		<tr class="carpoolTemplateRow">
+			<td class="name">Dimitri Hammond</td>
+			<td class="zip">78753</td>
+			<td class="date">Friday, 8pm</td>
+			<td class="avail">3</td>
+			<td class="carpoolID">0</td>
+			<td class="btn">
+				<button class="riderBtn" name="rider_88" onclick="signupForm(this)">Ride Along!</button>
+			</td>
+		</tr>
+	</tbody></table>
+	</div>
+	</td>
+</tr>
+</tbody></table>
+
+<br />
+<b>If you need to change your Driver or Rider info then please <a href="mailto:Dimitri@DimitriAndAlice.com">email Dimitri@DimitriAndAlice.com</a></b> (the deleting/editing part isn't automated yet :) )
+<br />
+
+<br /><table class="carpoolsContainerTable"><tbody>
+<tr>
+	<td rowspan="2">Carpools<br />
+	<b>FROM</b><br />
+	Event<br />
+	<button name="driverSignupFROM" onclick="signupForm(this)">I Can Drive!</button></td>
+	<td class="name"><b>Name</b></td>
+	<td class="zip"><b>ZipCode</b></td>
+	<td class="date"><b>Date, Time</b></td>
+	<td class="avail"><b># Avail</b></td>
+	<td class="btn"></td>
+</tr>
+<tr>
+	<td colspan="5" style="border: 2px solid #339966">
+	<div id="carpoolFROM" class="carpoolScroller">
+	<table id="carpoolFROMTable" class="carpoolScrollerTable">
+	<tbody>
+		<tr class="carpoolTemplateRow">
+			<td class="name">Dimitri Hammond</td>
+			<td class="zip">78753</td>
+			<td class="date">Friday, 8pm</td>
+			<td class="avail">3</td>
+			<td class="carpoolID">0</td>
+			<td class="btn">
+				<button class="riderBtn" name="rider_88" onclick="signupForm(this)">Ride Along!</button>
+			</td>
+		</tr>
+	</tbody></table>
+	</div>
+	</td>
+</tr>
+</tbody></table>
+
+<!--------------------- Sign-up Form --------------------->
+<div id="signupArea">
+	<form id="carpoolForm" onsubmit="return submitForm()" method="post">
+	<input id="carpoolID" name="carpoolID" type="hidden" value="-1" />
+	<input id="toFrom" name="toFrom" type="hidden" value="" />
+	<br/>
+	<table>
+		<tbody>
+			<th colspan="2">Thanks for <span id="signupHeaderText"></span>!<br />Please fill in all info:</th>
+			<tr><td>Your name:</td><td><input name="nameInput" type="text" /></td></tr>
+			<tr id="addyRow"><td>Your street address:</td><td><input name="streetAddress" type="text" /></td></tr>
+			<tr><td>Zipcode <span id="zipcodeText"></span>:</td><td><input name="zipcodeInput" type="text" size="10" /></td></tr>
+			<tr id="dayRow"><td>Day you'll be leaving <span id="dateText"></span>: </td><td><select name="daySelect">
+				<option value="Thursday, 4/28">Thursday, 4/28</option>
+				<option value="Friday, 4/29" selected="true">Friday, 4/29</option>
+				<option value="Saturday, 4/30">Saturday, 4/30</option>
+				<option value="Sunday, 5/1">Sunday, 5/1</option>
+			</select></td></tr>
+			<tr id="timeRow"><td>Time you'll be leaving:</td><td><input name="departTimeInput" type="text" value="4:30 pm" size="10" /></td></tr>
+			<tr><td>How many people <span id="fitText"></span> <br /><span id="numIncludeText"><i>(do <b>NOT</b> include yourself)</i></span></td><td><input name="numPeopleInput" type="text" size="3" value="2" /></td></tr>
+			<tr><td>Your phone number:<br/>Your e-mail:<br /><i>(will only be given to your carpool)</i></td><td><input name="phoneInput" type="text" /><br /><input name="emailInput" type="text" /><br/>--</td></tr>
+		</tbody>
+	</table>
+	<br/>
+	<input id="Submit1" type="submit" value="Sign me up!" />
+	<input id="Button1" type="button" value="Cancel" onclick="resetForm()" /></form>
+</div>
+
+<script>
+var _driverState = true;
+
+// Auto-run funcs
+// (need to make sure doc is loaded, first)
+$(document).ready( function () 
+{
+	$("#signupArea").hide();
+	$.ajaxSetup(
+	{
+		cache: false,
+		type: "POST",
+		dataType: "json",
+		error: onAjaxError,
+		traditional: false,
+		url: "http://dimitriandalice.com/scripts/carpool.php"
+	});
+	fillCarpools();
+	
+});
+
+function fillCarpools()
+{
+	$.ajax( { data:{ status:"loadCarpools", payload:"to" }, success:fillCarpoolsForTable } );
+	$.ajax( { data:{ status:"loadCarpools", payload:"from" }, success:fillCarpoolsForTable } );
+}
+
+function fillCarpoolsForTable( carpoolList )
+{
+	var firstPass = true;
+	carpoolList = carpoolList.payload;
+	var toFrom = carpoolList.shift();
+	var curCarpoolTable;
+	if ( toFrom == "to" )
+		curCarpoolTable = $("#carpoolTOTable");
+	else
+		curCarpoolTable = $("#carpoolFROMTable");
+	$(".carpoolTemplateRow:gt(0)", curCarpoolTable).remove();
+	
+
+	for ( var i in carpoolList )
+	{
+		if ( firstPass )
+			firstPass = false;
+		else
+			$(".carpoolTemplateRow:last", curCarpoolTable).clone().appendTo(curCarpoolTable);
+		
+		var curRow = $(".carpoolTemplateRow:last", curCarpoolTable);
+		$("td.name", curRow).text( carpoolList[i]['name'] );
+		$("td.zip", curRow).text( carpoolList[i]['zipcode'] );
+		$("td.date", curRow).text( carpoolList[i]['time'] );
+		var remain = Number(carpoolList[i]['remain']);
+		$("td.carpoolID", curRow).text( carpoolList[i]['carpool_id'] );
+		
+			
+		// tag on the carpool_id to each carpool row
+		if ( remain <= 0 )
+		{
+			$("td.avail", curRow).text( "full" );
+			$("td.avail", curRow).css( "color", "#FF0000" );
+			$(".riderBtn", curRow).hide();
+		}
+		else
+		{
+			$("td.avail", curRow).text( remain );
+			$("td.avail", curRow).css( "color", "" );
+			$(".riderBtn", curRow).show();
+			$(".riderBtn", curRow).attr("name","rider_" + $(".carpoolID", curRow).text());
+		}
+	}
+}
+
+// Shows the signup form; customizes it depending on type
+function signupForm( target )
+{
+	$("#signupArea").show(500);
+	_driverState = true;
+	switch ( target.name )
+	{
+		case "driverSignupTO":
+			$("#dayRow").show();
+			$("#timeRow").show();
+			$("#addyRow").hide();
+			$("#numIncludeText").show();
+			$("#signupHeaderText").text( "offering to drive TO the event" );
+			$("#zipcodeText").text( "where you'll be leaving from" );
+			$("#dateText").text( "to head to event" );
+			$("#fitText").text("can you fit?");
+			$("#toFrom").val("to");
+			break;
+		case "driverSignupFROM":
+			$("#dayRow").show();
+			$("#timeRow").show();
+			$("#addyRow").hide();
+			$("#numIncludeText").show();
+			$("#signupHeaderText").text( "offering to drive FROM the event" );
+			$("#zipcodeText").text( "where you'll be driving to" );
+			$("#dateText").text( "the event" );
+			$("#fitText").text("can you fit?");
+			$("#toFrom").val("from");
+			break;
+		default: //rider buttons
+			_driverState = false;
+			$("#dayRow").hide();
+			$("#timeRow").hide();
+			$("#numIncludeText").hide();
+			$("#addyRow").show();
+			$("#zipcodeText").text( "" );
+			$("#signupHeaderText").text( "hitching a ride" );
+			$("#fitText").text("are riding?");
+			var carpoolID = target.name.substr(6);
+			$("#carpoolID").val(carpoolID);
+			break;
+			
+	}
+}
+
+function resetForm()
+{
+	// zero all values
+	$("#carpoolForm")[0].reset();	
+	$("#signupArea").hide(500);
+}
+
+// Uses AJAX techniques for passing reservation info back to server
+function submitForm()
+{
+	if ( (
+		$("[name='nameInput']").val() == "" ||
+		$("[name='zipcodeInput']").val() == "" ||
+		$("[name='numPeopleInput']").val() == 0 ||
+		$("[name='phoneInput']").val() == "" ||
+		$("[name='emailInput']").val() == "" ||
+		( $("[name='streetAddress']").val() == "" && ! _driverState ) ||
+		( $("[name='departTimeInput']").val() == "" && _driverState )
+		) )
+	{	
+		window.alert( "An entry is empty!" );
+		return false;
+	}
+	
+	$.ajax( { data:{ status:_driverState ? "addDriver" : "addRider", payload: $("#carpoolForm").serialize() }, success:carpoolAdded } );
+	//$.ajax( { data:{ status:"addDriver", payload: "#carpoolForm"}, success:carpoolAdded } );
+	return false;
+}
+
+function carpoolAdded( data )
+{
+	if ( data.status.substr(0,5) == "Error" )
+		window.alert( "Oopsies!  We have an error.\n " + data.status.substr(6) );
+	else
+		window.alert( "Thanks!\n " + data.status );
+	resetForm();
+	fillCarpools();	
+}
+
+// AJAX Global callback for all errors
+function onAjaxError( xhr, ts, et )
+{
+	window.alert( "Server-side error:<<<\n" +
+				   xhr.responseText + "<<<\n" +
+				   ts + "<<<\n" +
+				   et );
+	resetForm();
+	fillCarpools();	
+}
+</script>
